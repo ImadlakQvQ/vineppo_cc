@@ -1,0 +1,101 @@
+Traceback (most recent call last):
+  File "/home/xz/program/VinePPO/src/treetune/main.py", line 110, in <module>
+    fire.Fire(EntryPoint)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/fire/core.py", line 141, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/fire/core.py", line 475, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/fire/core.py", line 691, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+  File "/home/xz/program/VinePPO/src/treetune/runtime/policy_iteration_runtime.py", line 211, in run_iteration_loop
+    episodes = self._generate_episodes(
+  File "/home/xz/program/VinePPO/src/treetune/runtime/policy_iteration_runtime.py", line 757, in _generate_episodes
+    self._log_some_examples(episodes_dataset, iteration_id)
+  File "/home/xz/program/VinePPO/src/treetune/runtime/policy_iteration_runtime.py", line 785, in _log_some_examples
+    self.episode_generator.log_episodes(
+  File "/home/xz/program/VinePPO/src/treetune/episode_generators/base_episode_generator.py", line 181, in log_episodes
+    self.cloud_logger.log({f"episodes/iteration_{iteration_idx:04}": table})
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 420, in wrapper
+    return func(self, *args, **kwargs)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 371, in wrapper_fn
+    return func(self, *args, **kwargs)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 361, in wrapper
+    return func(self, *args, **kwargs)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 1828, in log
+    self._log(data=data, step=step, commit=commit)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 1596, in _log
+    self._partial_history_callback(data, step, commit)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/wandb_run.py", line 1468, in _partial_history_callback
+    self._backend.interface.publish_partial_history(
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/interface/interface.py", line 558, in publish_partial_history
+    data = history_dict_to_json(run, data, step=user_step, ignore_copy_err=True)
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/data_types/utils.py", line 52, in history_dict_to_json
+    payload[key] = val_to_json(
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/data_types/utils.py", line 155, in val_to_json
+    art = wandb.Artifact(f"run-{run.id}-{sanitized_key}", "run_table")
+  File "/home/xz/anaconda3/envs/vineppo/lib/python3.10/site-packages/wandb/sdk/artifacts/artifact.py", line 123, in __init__
+    raise ValueError(
+ValueError: Artifact name may only contain alphanumeric characters, dashes, underscores, and dots. Invalid name: run-<unique_wandb_run_id>-episodesiteration_0000
+wandb: WARNING Ensure read and write access to run files dir: /home/xz/program/VinePPO/wandb/run-20241116_212240-<unique_wandb_run_id>/files, control this via the WANDB_DIR env var. See https://docs.wandb.ai/guides/track/environment-variables
+wandb: | 0.172 MB of 0.172 MB uploaded
+wandb: Run history:
+wandb:           episodes_metric/finish_reason_is_length ▁
+wandb:             episodes_metric/is_truncated_response ▁
+wandb:            episodes_metric/is_unfinished_response ▁▁
+wandb:                  episodes_metric/mc_avg_num_rolls ▁
+wandb:          episodes_metric/mc_avg_unique_rolls_frac ▁
+wandb:                       episodes_metric/mc_roll_std ▁
+wandb:                episodes_metric/mc_roll_trunc_frac ▁
+wandb:                    episodes_metric/mc_values/mean ▁
+wandb:          episodes_metric/num_reasoning_steps/mean ▁
+wandb:              episodes_metric/num_unique_responses ▁
+wandb:                          episodes_metric/once_hit ▁
+wandb:                      episodes_metric/parse_failed ▁
+wandb:                   episodes_metric/trajectory_bleu ▁
+wandb: timing/episode_generation/inferResult_to_episodes ▁
+wandb:               timing/episode_generation/inference ▁
+wandb:          timing/episode_generation/traj_inference ▁
+wandb:        timing/episode_generation/value_estimation ▁
+wandb:              timing/episode_generation/vllm_start ▁
+wandb:                timing/total/init_policy_iteration ▁
+wandb:                            train/global_iteration ▁▁▁
+wandb:                 vllm_stats/avg_cpu_kv_cache_usage ▁
+wandb:              vllm_stats/avg_generation_throughput ▁
+wandb:                 vllm_stats/avg_gpu_kv_cache_usage ▁
+wandb:                       vllm_stats/avg_pending_reqs ▁
+wandb:                       vllm_stats/avg_running_reqs ▁
+wandb:     vllm_stats/total_approx_generation_throughput ▁
+wandb: 
+wandb: Run summary:
+wandb:           episodes_metric/finish_reason_is_length 0.03906
+wandb:             episodes_metric/is_truncated_response 0.0
+wandb:            episodes_metric/is_unfinished_response 0.03906
+wandb:                  episodes_metric/mc_avg_num_rolls 9.0
+wandb:          episodes_metric/mc_avg_unique_rolls_frac 0.89735
+wandb:                       episodes_metric/mc_roll_std 0.0943
+wandb:                episodes_metric/mc_roll_trunc_frac 0.15655
+wandb:                    episodes_metric/mc_values/mean 0.07449
+wandb:          episodes_metric/num_reasoning_steps/mean 8.46289
+wandb:              episodes_metric/num_unique_responses 7.98438
+wandb:                          episodes_metric/once_hit 0.35938
+wandb:                      episodes_metric/parse_failed 0.0
+wandb:                   episodes_metric/trajectory_bleu 0.23693
+wandb: timing/episode_generation/inferResult_to_episodes 0.84202
+wandb:               timing/episode_generation/inference 2638.70126
+wandb:          timing/episode_generation/traj_inference 18.81993
+wandb:        timing/episode_generation/value_estimation 2402.53068
+wandb:              timing/episode_generation/vllm_start 75.449
+wandb:                timing/total/init_policy_iteration 2.42944
+wandb:                            train/global_iteration 0
+wandb:                 vllm_stats/avg_cpu_kv_cache_usage 0.0
+wandb:              vllm_stats/avg_generation_throughput 4281.16
+wandb:                 vllm_stats/avg_gpu_kv_cache_usage 62.91
+wandb:                       vllm_stats/avg_pending_reqs 376.75
+wandb:                       vllm_stats/avg_running_reqs 99.89
+wandb:     vllm_stats/total_approx_generation_throughput 4281.16
+wandb: 
+wandb: 🚀 View run polIter_rho1bSft2_vineppo_MATH at: https://wandb.ai/imadlak/VinePPO-src_treetune/runs/%3Cunique_wandb_run_id%3E
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./wandb/run-20241116_212240-<unique_wandb_run_id>/logs
+[2024-11-16 22:06:53,946] [INFO] [launch.py:316:sigkill_handler] Killing subprocess 26537
+[2024-11-16 22:06:53,947] [ERROR] [launch.py:322:sigkill_handler] ['/home/xz/anaconda3/envs/vineppo/bin/python', '-u', 'src/treetune/main.py', '--configs', 'configs/polIter_rho1bSft2_vineppo_MATH.jsonnet', 'run_iteration_loop'] exits with return code = 1
