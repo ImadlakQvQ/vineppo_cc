@@ -46,6 +46,9 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
         vllm_server_ptr, guidance_llm_kwargs_ptr = [], []
 
         def get_vllm_server():
+            """
+            创建vllm server
+            """
             if len(vllm_server_ptr) == 0:
                 out = vllm_init_fn()
                 vllm_server_ptr.append(out[0])
@@ -54,19 +57,25 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
             return vllm_server_ptr[0], guidance_llm_kwargs_ptr[0]
 
         def kill_vllm_server():
+            """
+            杀死vllm server
+            """
             if len(vllm_server_ptr) > 0:
                 vllm_server_ptr[0].stop_server()
                 vllm_server_ptr.pop()
                 guidance_llm_kwargs_ptr.pop()
 
         def try_loading_inference_results(results_path: Path) -> Optional[Dataset]:
+            """
+            没有啥用 返回都是None
+            """
             logger.info(f"Always generating from scratch")
             return None
 
         metrics = {}
 
         #####################################################################################
-        # Sample Trajectories from the current policy
+        # Sample Trajectories from the current policy 从当前策略采样
         #####################################################################################
         traj_result_path = results_root_dir / "traj_results_ds"
         traj_infer_results = try_loading_inference_results(traj_result_path)
@@ -794,6 +803,9 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
         results_path: Path,
         seed: int,
     ) -> Dataset:
+        """
+        function for getting inference results
+        """     
         # Sanity check
         request_ids = requests_ds["_treetune__idx"]
         assert len(request_ids) == len(set(request_ids)), "Duplicate request ids found."

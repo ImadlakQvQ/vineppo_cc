@@ -1626,8 +1626,11 @@ class PPOTrainer(DeepSpeedPolicyTrainer):
         dataset: Dataset,
         column_name: str,
     ) -> Dataset:
-        # Create a distributed data loader such that the order of
-        # episodes is preserved when batched are distributed across multiple processes.
+        """        
+        Create a distributed data loader such that the order of
+        episodes is preserved when batched are distributed across multiple processes.
+        计算数据集中每个样本的对数概率，并将这些对数概率添加到数据集中。
+        """
         data_loader = prepare_data_loader_for_inference(
             dataset,
             per_device_batch_size=self.args.per_device_train_batch_size,

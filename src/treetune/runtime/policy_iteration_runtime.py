@@ -690,6 +690,9 @@ class PolicyIterationRuntime(DistributedRuntime):
         latest_policy_path: Optional[Path] = None,
         allow_loading_from_cache: bool = True,
     ) -> Dataset:
+        """
+        生成数据的
+        """
         if self.distributed_state.use_distributed:
             self.distributed_state.wait_for_everyone()
 

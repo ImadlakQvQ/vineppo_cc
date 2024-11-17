@@ -160,7 +160,7 @@ class TreeInferenceStrategy(InferenceStrategy):
 
         self.node_expander.set_run_program(sem_run_program)
         self.answer_extractor.set_run_program(sem_run_program)
-
+        # 提问方式模版
         question_format_keys = []
         for column in dataset.column_names:
             if f"{{{column}}}" in self.question_template:
@@ -170,10 +170,10 @@ class TreeInferenceStrategy(InferenceStrategy):
             f"Question field '{self.question_field}' must be in the question template. "
             f"Available format keys: {question_format_keys}"
         )
-
+        # 筛选掉长问题
         if self.max_question_length is not None:
             dataset = self._filter_out_long_questions(dataset, question_format_keys)
-
+        # 过滤掉部分问题
         before_filter_len = len(dataset)
         for filter_fn in self.filter_functions:
             dataset = dataset.filter(

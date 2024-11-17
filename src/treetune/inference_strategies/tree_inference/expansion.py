@@ -28,7 +28,8 @@ def replace_gen_pattern(s, my_repl):
     # Find the start index
     start_index = s.find(start_pattern)
     if start_index == -1:
-        return s  # Start pattern not found, return original string
+        return s  
+    # Start pattern not found, return original string
 
     # Find the end index starting from the end of the string
     end_index = s.rfind(end_pattern)

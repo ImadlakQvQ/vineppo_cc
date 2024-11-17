@@ -17,7 +17,7 @@ class DataCollator(Registrable):
 class PPODataCollator:
     def __call__(self, data_instances: List[Dict[str, Any]]) -> Dict[str, torch.Tensor]:
         """
-        data_isntances应该存有数据吧
+        data_instances应该存有数据吧
         Collates the given data instances into a batch.
         Every data instance should have the following keys:
         - "query_token_ids": The token ids of the query.
