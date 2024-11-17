@@ -96,7 +96,7 @@ We first specify the configuration file for the experiment, and then, we explain
 Once you have selected the configuration file, you can run the training and evaluation using the following script:
 ```bash
 
-CONFIGSTR="configs/<config_file>.jsonnet"
+CONFIGSTR="configs/polIter_rho1bSft2_vineppo_MATH.jsonnet"
 APP_DIRECTORY="experiments/<path_to_output_dir>"
 
 export APP_SEED="2746318213"
