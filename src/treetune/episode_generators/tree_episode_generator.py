@@ -209,7 +209,7 @@ class TreeEpisodeGenerator(EpisodeGenerator, TreeEpisodeUtils):
         assert (
             len(self.episode_cache) == 0
         ), "`precompute_episodes` can only be called once"
-
+        print("############################################################################ Precomputing episodes")
         results: Dataset = self.inference_strategy.generate(None)
         results_lst = results.to_list()
 

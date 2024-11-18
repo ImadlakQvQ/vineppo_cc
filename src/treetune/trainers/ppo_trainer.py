@@ -368,6 +368,7 @@ class PPOTrainer(DeepSpeedPolicyTrainer):
             Optional[Path]:
                 The path to the latest policy (actor) checkpoint.
         """
+        # print('输出episode data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', episodes_dataset)
         episodes_dataset = self._filter_episodes(episodes_dataset)
         if self._is_kl_penalty_enabled():
             # Compute or reload from disk the episodes with reference log probabilities

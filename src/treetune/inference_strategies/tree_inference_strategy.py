@@ -83,6 +83,7 @@ class TreeInferenceStrategy(InferenceStrategy):
         super().__init__(**kwargs)
         self.max_depth = max_depth
         self.question_template = question_template
+        # print("??????????????????????????????????????????????????????????????????????????????????",question_template)
         self.node_expander = node_expander
         self.answer_extractor = answer_extractor
         self.seed = seed
@@ -136,7 +137,7 @@ class TreeInferenceStrategy(InferenceStrategy):
     async def _concurrent_generate(self, dataset: Dataset) -> Dataset:
         # Create a semaphore to limit the number of concurrent programs
         sem_program = asyncio.Semaphore(self.max_concurrent_programs)
-
+        # print("############################################################\n", dataset['gold_solution_steps'])
         # Create a semaphore to limit the number of concurrent generations
         sem_generation = asyncio.Semaphore(self.max_concurrent_generations)
 
@@ -181,6 +182,7 @@ class TreeInferenceStrategy(InferenceStrategy):
                 num_proc=4,
                 desc=f"Applying filter function {filter_fn.__class__.__name__}",
             )
+        print("##################################################################\n", dataset)
         logger.info(
             f"Filtered out {before_filter_len - len(dataset)} examples from {before_filter_len} examples."
         )
@@ -213,6 +215,7 @@ class TreeInferenceStrategy(InferenceStrategy):
 
             format_kwargs = {key: data_instance[key] for key in question_format_keys}
             initial_prompt = self.question_template.format(**format_kwargs)
+            # print("##################################################################\n", initial_prompt)
 
             tasks.append(
                 asyncio.create_task(
@@ -237,7 +240,7 @@ class TreeInferenceStrategy(InferenceStrategy):
         for task in tqdm_asyncio.as_completed(tasks, desc="Constructing trees"):
             instance_idx, tree = await task
             trees[instance_idx] = tree
-
+            
             if not self.no_cache:
                 tree_file_path = self.get_tree_instance_path(instance_idx)
                 with tree_file_path.open("w") as f:  # so we can resume later on
@@ -247,10 +250,14 @@ class TreeInferenceStrategy(InferenceStrategy):
                 self.cloud_logger.log(
                     {"construction_progress": len(trees) / len(dataset)}
                 )
-
+        # print(trees.keys())
         trees = [
             trees[idx] for idx in dataset["_treetune__idx"]
         ]  # change order back to original
+        # print(trees)
+        with open('output.json', 'w') as f:
+            json.dump(trees, f, indent=4)
+            print('saved')
         assert len(trees) == len(
             dataset
         ), f"len(trees)={len(trees)}, len(dataset)={len(dataset)}"

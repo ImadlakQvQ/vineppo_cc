@@ -32,6 +32,17 @@ from treetune.trainers.base_trainer import Trainer
 from treetune.trainers.deepspeed_policy_trainer import DeepSpeedPolicyTrainer
 from treetune.trainers.policy_trainer import PolicyTrainer
 
+
+import inspect
+
+def print_location(state):
+    frame = inspect.currentframe()
+    file_name = inspect.getfile(frame)
+    line_number = frame.f_lineno
+    print("#######################################################################\n", 
+          f"Running at {file_name}, line {line_number}", state)
+
+
 logger = get_logger(__name__)
 
 
@@ -208,11 +219,13 @@ class PolicyIterationRuntime(DistributedRuntime):
                 logger.info("*" * 80)
 
             t0 = time.time()
+            # print_location("before generate episodes")
             episodes = self._generate_episodes(
                 iteration,
                 latest_policy_path=latest_policy_path,
                 allow_loading_from_cache=iteration == starting_iteration,
             )
+            # print_location("after generate episodes")
             logger.info(f"Num. Episodes={len(episodes)}")
             self._cloud_log({"timing/total/episode_generation": time.time() - t0})
 
@@ -223,6 +236,8 @@ class PolicyIterationRuntime(DistributedRuntime):
             self.distributed_state.wait_for_everyone()
 
             t0 = time.time()
+            # episodes 是Dataset({features: ['query_token_ids', 'response_token_ids', 'reward', 'scores', 'advantages'],num_rows: 512})
+
             latest_policy_path = trainer.step(episodes)
             self._cloud_log({"timing/total/training_step": time.time() - t0})
 
@@ -693,6 +708,7 @@ class PolicyIterationRuntime(DistributedRuntime):
         """
         生成数据的
         """
+        # print(os.path.abspath(__file__), "generating episode !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         if self.distributed_state.use_distributed:
             self.distributed_state.wait_for_everyone()
 
@@ -732,7 +748,7 @@ class PolicyIterationRuntime(DistributedRuntime):
             assert isinstance(episodes, Dataset)
             if is_main_process:
                 remove_null_columns(episodes).save_to_disk(episodes_path)
-
+            logger.info(f"Generated {len(episodes)} episodes in distributed mode")
         # If it does not support distributed, only generate in the main process
         elif is_main_process:
             episodes = self.episode_generator.generate()
@@ -744,7 +760,7 @@ class PolicyIterationRuntime(DistributedRuntime):
                     }
                 )
             remove_null_columns(episodes).save_to_disk(episodes_path)
-
+            logger.info(f"Generated {len(episodes)} episodes in non-distributed mode")
         # Wait for episodes to be generated
         self.distributed_state.wait_for_everyone()
 
@@ -753,8 +769,11 @@ class PolicyIterationRuntime(DistributedRuntime):
             f"not exist from {self.distributed_state.process_index} perspective"
         )
         episodes_dataset = Dataset.load_from_disk(str(episodes_path))
-
+        # print('dataset path!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', episodes_path)
+        # print_location("after load dataset", episodes_path)
         self._log_some_examples(episodes_dataset, iteration_id)
+
+        # print('dataset!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', episodes_dataset)
         # from treetune.common.wandb_utils import save_inference_result_to_cloud
 
         # save_inference_result_to_cloud(

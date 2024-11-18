@@ -73,7 +73,9 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
             return None
 
         metrics = {}
-
+        print('#####################################################################################\n',
+        '# Sample Trajectories from the current policy 从当前策略采样\n',
+        '#####################################################################################\n')
         #####################################################################################
         # Sample Trajectories from the current policy 从当前策略采样
         #####################################################################################
@@ -83,6 +85,7 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
             _, guidance_llm_kwargs = get_vllm_server()
 
             t0 = time.time()
+
             traj_infer_results = self._obtain_inference_results(
                 inference_strategy_lazy=self.inference_strategy_lazy,
                 requests_ds=dataset_shard,
@@ -93,6 +96,10 @@ class MathEpisodeGeneratorWithMCAdvantages(MathEpisodeGenerator):
             metrics["timing/episode_generation/traj_inference"] = time.time() - t0
             release_memory()
         trajectories = self._create_trajectories(traj_infer_results, iteration)
+        print(self.inference_strategy_lazy)
+        print('#####################################################################################\n',
+        '# Estimate the value of each state in the trajectories using Monte Carlo rollouts 使用蒙特卡洛模拟估计轨迹中每个状态的值\n',
+        '#####################################################################################\n')
 
         #####################################################################################
         # Estimate the value of each state in the trajectories using Monte Carlo rollouts
