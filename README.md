@@ -100,7 +100,7 @@ CONFIGSTR="configs/polIter_rho1bSft2_vineppo_MATH.jsonnet"
 APP_DIRECTORY="experiments/<path_to_output_dir>"
 
 export APP_SEED="2746318213"
-export WANDB_RUN_ID="<unique_wandb_run_id>" # Optional
+export WANDB_RUN_ID="2" # Optional
 
 NUM_GPUS=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 
