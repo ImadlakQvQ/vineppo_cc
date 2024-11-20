@@ -52,7 +52,7 @@ sudo docker run \
   kazemnejad/treetune:v15.1 \
   python -c "import torch; print(torch.__version__)"
 ```
-*Optional: You can use the following [Dockerfile](https://github.com/McGill-NLP/VinePPO/blob/main/Dockerfile) to build your own image*
+*Optional: You can use the following [Dockerfile](https://github.com/ImadlakQvQ/VinePPO/blob/main/Dockerfile) to build your own image*
 
 **3. Using Singularity Container**
 ```bash
@@ -118,7 +118,7 @@ deepspeed --no_local_rank --num_gpus=$NUM_GPUS   \
 
 This setup was tested on 4x A100 80GB GPUs for Rho models and 8x H100 80GB GPUs for DeepSeek models.
 
-*PS: Refer to [`src/treetune/runtime/policy_iteration_runtime.py`](https://github.com/McGill-NLP/VinePPO/blob/f41ba0380619d588d80d63c4b6c90dbc5c717d1e/src/treetune/runtime/policy_iteration_runtime.py#L162) if you'd like to start reading the codebase.*
+*PS: Refer to [`src/treetune/runtime/policy_iteration_runtime.py`](https://github.com/ImadlakQvQ/VinePPO/blob/f41ba0380619d588d80d63c4b6c90dbc5c717d1e/src/treetune/runtime/policy_iteration_runtime.py#L162) if you'd like to start reading the codebase.*
 
 ### Single GPU Training (Only for Rho models)
 Add this config `configs/trainers/devBz16.jsonnet` to the `$CONFIGSTR` variable in the script above:
@@ -170,36 +170,36 @@ This is the release codebase for VinePPO. It is developed by [@kazemnejad](https
 This codebase takes pieces from the [guidance](https://github.com/guidance-ai/guidance), [OpenAI PRM Repo](https://github.com/openai/prm800k), and [DeepSeekMath](https://github.com/deepseek-ai/DeepSeek-Math).
 
 ## Code Structure
-- [`configs`](https://github.com/McGill-NLP/vineppo/tree/main/configs): Contains Jsonnet files for configuring experiment settings.
-- [`src/treetune`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune): The main directory for source code, encompassing:
-    - [`models`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/models): Contains model loading, with [`pretrained.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/models/pretrained.py) the central piece to load HF models.
-    - [`episode_generators`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators): Manages the episode generation pipelines. The [`math_episode_generator.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_episode_generator.py) script is key for PPO episode generation and [`math_episode_generator_with_mc_advantages.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_episode_generator_with_mc_advantages.py) creates the episodes for VinePPO.
-    - [`trainers`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/trainers): Contains trainer classes, with [`ppo_trainer.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/trainers/ppo_trainer.py) is the main PPO trainer which is shared between PPO and VinePPO.
-    - [`runtime`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/runtime): Integrates components and implements training and evaluation procedures. The [`policy_iteration_runtime.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/runtime/policy_iteration_runtime.py) script is the **starting point for running experiments.**
-- [`src/guidance`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune): We ship the [guidance](https://github.com/guidance-ai/guidance) module directly with the codebase. 
+- [`configs`](https://github.com/ImadlakQvQ/Vineppo/tree/main/configs): Contains Jsonnet files for configuring experiment settings.
+- [`src/treetune`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune): The main directory for source code, encompassing:
+    - [`models`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/models): Contains model loading, with [`pretrained.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/models/pretrained.py) the central piece to load HF models.
+    - [`episode_generators`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators): Manages the episode generation pipelines. The [`math_episode_generator.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_episode_generator.py) script is key for PPO episode generation and [`math_episode_generator_with_mc_advantages.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_episode_generator_with_mc_advantages.py) creates the episodes for VinePPO.
+    - [`trainers`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/trainers): Contains trainer classes, with [`ppo_trainer.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/trainers/ppo_trainer.py) is the main PPO trainer which is shared between PPO and VinePPO.
+    - [`runtime`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/runtime): Integrates components and implements training and evaluation procedures. The [`policy_iteration_runtime.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/runtime/policy_iteration_runtime.py) script is the **starting point for running experiments.**
+- [`src/guidance`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune): We ship the [guidance](https://github.com/guidance-ai/guidance) module directly with the codebase. 
 
 ### Important files
 Trainers:
-- [`ppo_trainer.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/trainers/ppo_trainer.py): The main PPO trainer which is shared between PPO and VinePPO.
-- [`dpo_positive_trainer.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/trainers/dpo_positive_trainer.py): The DPO-Positive trainer.
-- [`restem_trainer.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/trainers/restem_trainer.py): The RestEM trainer.
+- [`ppo_trainer.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/trainers/ppo_trainer.py): The main PPO trainer which is shared between PPO and VinePPO.
+- [`dpo_positive_trainer.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/trainers/dpo_positive_trainer.py): The DPO-Positive trainer.
+- [`restem_trainer.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/trainers/restem_trainer.py): The RestEM trainer.
 
 Episode Generators:
-- [`math_episode_generator.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_episode_generator.py): The PPO episode generator.
-- [`math_episode_generator_with_mc_advantages.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_episode_generator_with_mc_advantages.py): The VinePPO episode generator. This class contains the implementation for Monte Carlo value estimation.
-- [`math_dpo_positive_episode_generator.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_dpo_positive_episode_generator.py): The DPO-Positive episode generator, which generate positive and negative pairs for DPO.
-- [`math_restem_episode_generator.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/episode_generators/math_restem_episode_generator.py): The RestEM episode generator.
+- [`math_episode_generator.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_episode_generator.py): The PPO episode generator.
+- [`math_episode_generator_with_mc_advantages.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_episode_generator_with_mc_advantages.py): The VinePPO episode generator. This class contains the implementation for Monte Carlo value estimation.
+- [`math_dpo_positive_episode_generator.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_dpo_positive_episode_generator.py): The DPO-Positive episode generator, which generate positive and negative pairs for DPO.
+- [`math_restem_episode_generator.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/episode_generators/math_restem_episode_generator.py): The RestEM episode generator.
 
 Tasks:
-- [`math.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/tasks/math.py): The main task file for MATH dataset.
-- [`gsm8k.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/tasks/gsm8k.py): The main task file for GSM8K dataset.
-- [`math_grader_minerva.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/tasks/math_grader_minerva.py): The grader for MATH dataset.
-- [`math_extract_steps_inplace`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/tasks/math_extract_steps_inplace.py): The helper script to split MATH-style solutions into steps.
+- [`math.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/tasks/math.py): The main task file for MATH dataset.
+- [`gsm8k.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/tasks/gsm8k.py): The main task file for GSM8K dataset.
+- [`math_grader_minerva.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/tasks/math_grader_minerva.py): The grader for MATH dataset.
+- [`math_extract_steps_inplace`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/tasks/math_extract_steps_inplace.py): The helper script to split MATH-style solutions into steps.
 
 Other:
-- [`policy_iteration_runtime.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/runtime/policy_iteration_runtime.py): The main runtime script for running experiments including training and evaluation.
-- [`vllm_server.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/common/vllm_server.py): The handler class for vLLM inference engine.
-- [`cot_inference_strategy.py`](https://github.com/McGill-NLP/vineppo/tree/main/src/treetune/inference_strategies/cot_inference_strategy.py): The main class we use for running inferences with vLLM API.
+- [`policy_iteration_runtime.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/runtime/policy_iteration_runtime.py): The main runtime script for running experiments including training and evaluation.
+- [`vllm_server.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/common/vllm_server.py): The handler class for vLLM inference engine.
+- [`cot_inference_strategy.py`](https://github.com/ImadlakQvQ/Vineppo/tree/main/src/treetune/inference_strategies/cot_inference_strategy.py): The main class we use for running inferences with vLLM API.
 
 ## Citation
 ```bibtex
