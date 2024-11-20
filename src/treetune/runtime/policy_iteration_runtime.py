@@ -171,7 +171,7 @@ class PolicyIterationRuntime(DistributedRuntime):
             logger.info(f"Finished iteration {iteration}")
 
     def run_iteration_loop(self, force_rerun: bool = False):
-        # Check if final checkpoint exists
+        # Check if final checkpoint exists 检测有没有存储模型，有的话就不要训练了
         final_checkpoint = self.exp_root / "checkpoints" / "final"
         if final_checkpoint.exists() and not force_rerun:
             logger.info("Final checkpoint already exists. Skipping iteration loop.")
@@ -202,7 +202,7 @@ class PolicyIterationRuntime(DistributedRuntime):
                 self.tokenizer.save_pretrained(latest_policy_path)
             if is_local_main_process:
                 logger.info(f"**** Resuming from iteration {starting_iteration} ****")
-
+        # 从当前保存的模型开始训练
         for iteration in range(starting_iteration, self.num_iterations):
             if (
                 self.early_stop_iteration is not None
