@@ -716,7 +716,7 @@ class PolicyIterationRuntime(DistributedRuntime):
         episodes_path = (
             self.episodes_checkpoint_dir / f"episodes_{str(iteration_id).zfill(4)}"
         )
-
+        # 如果存在episode，就直接加载    
         if allow_loading_from_cache and episodes_path.exists():
             logger.warning(
                 f"Episode at {iteration_id} already exist. Loading from {episodes_path}"
@@ -752,6 +752,7 @@ class PolicyIterationRuntime(DistributedRuntime):
             logger.info(f"Generated {len(episodes)} episodes in distributed mode")
         # If it does not support distributed, only generate in the main process
         elif is_main_process:
+            # 生成episode的主程序
             episodes = self.episode_generator.generate()
             if not isinstance(episodes, Dataset):
                 episodes = Dataset.from_dict(
