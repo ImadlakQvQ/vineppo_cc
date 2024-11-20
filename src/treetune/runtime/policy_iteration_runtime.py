@@ -220,6 +220,7 @@ class PolicyIterationRuntime(DistributedRuntime):
 
             t0 = time.time()
             # print_location("before generate episodes")
+            # 生成episode
             episodes = self._generate_episodes(
                 iteration,
                 latest_policy_path=latest_policy_path,
@@ -236,7 +237,7 @@ class PolicyIterationRuntime(DistributedRuntime):
             self.distributed_state.wait_for_everyone()
 
             t0 = time.time()
-            # episodes 是Dataset({features: ['query_token_ids', 'response_token_ids', 'reward', 'scores', 'advantages'],num_rows: 512})
+            # episodes 是 Dataset({features: ['query_token_ids', 'response_token_ids', 'reward', 'scores', 'advantages'], num_rows: 512})
 
             latest_policy_path = trainer.step(episodes)
             self._cloud_log({"timing/total/training_step": time.time() - t0})
