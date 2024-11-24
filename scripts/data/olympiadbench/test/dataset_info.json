@@ -1,0 +1,88 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 1351841,
+  "description": "",
+  "download_checksums": {
+    "/Users/amirhosein/Development/PycharmProjects/treetune/notebooks/../experiments/olympiadbench.jsonl": {
+      "num_bytes": 1493870,
+      "checksum": null
+    }
+  },
+  "download_size": 1493870,
+  "features": {
+    "id": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "subfield": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "context": {
+      "dtype": "null",
+      "_type": "Value"
+    },
+    "solution": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "final_answer": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "is_multiple_answer": {
+      "dtype": "bool",
+      "_type": "Value"
+    },
+    "unit": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "answer_type": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "error": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "problem": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "_provided_sol": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "answer": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 2845711,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 1351841,
+      "num_examples": 675,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

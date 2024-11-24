@@ -1,0 +1,62 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 934071,
+  "description": "",
+  "download_checksums": {
+    "/Users/amirhosein/Development/PycharmProjects/treetune/notebooks/../experiments/college_math.jsonl": {
+      "num_bytes": 1188309,
+      "checksum": null
+    }
+  },
+  "download_size": 1188309,
+  "features": {
+    "data_source": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "question_number": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "answer": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "license": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "data_topic": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "problem": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "solution": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 2122380,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 934071,
+      "num_examples": 2818,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
