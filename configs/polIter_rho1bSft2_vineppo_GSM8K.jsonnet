@@ -1,4 +1,4 @@
-local hf_model_name = '/home/imadlak/.cache/huggingface/hub/models--realtreetune--rho-1b-sft-GSM8K';
+local hf_model_name = 'rho-1b-sft-GSM8K';
 local task = (import 'tasks/gsm8k_orig_format.jsonnet');
 local total_num_iterations = 500;
 
