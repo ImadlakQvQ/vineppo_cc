@@ -4,7 +4,7 @@
 #SBATCH --output=runlog/exp.out      # log 保存地址
 #SBATCH --cpus-per-task=6         # CPU cores/threads
 #SBATCH --mem=80gb               # memory per node
-#BATCH --time=1-02:00:00            # set the time for tasks     3 days 2 hours 1 minute 0 second for --time==3-02:01:00
+#BATCH --time=1-10:00            # set the time for tasks     3 days 2 hours 1 minute 0 second for --time==3-02:01:00
 
 module load StdEnv/2023  gcc/12.3 cuda/12.2 arrow/17.0 rust/1.70.0 python/3.10.13              # load the module
 #cd /project/def-bboulet/imadlak/program/VinePPO                                                # set the path

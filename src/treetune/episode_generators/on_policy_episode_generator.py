@@ -520,11 +520,13 @@ class OnPolicyEpisodeGenerator(EpisodeGenerator):
                 f"model={hf_ckpt_path_or_model}   port={vllm_port}   seed={seed}"
             )
             t0 = time.time()
+            # TODO 调用vllm server
             vllm_server = vllm_server_lazy.construct(
                 seed=seed,
                 port=vllm_port,
                 gpu_memory_utilization=vllm_gpu_memory_utilization,
             )
+            
             server_url = vllm_server.start_server(
                 hf_ckpt_path_or_model=hf_ckpt_path_or_model,
                 gpu_idx=process_index,
