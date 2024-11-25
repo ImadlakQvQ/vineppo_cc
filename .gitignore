@@ -12,6 +12,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+venv/
+rho-1b-sft-GSM8K/
 build/
 develop-eggs/
 dist/
