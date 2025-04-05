@@ -1,3 +1,4 @@
+## CC module load gcc arrow
 psutil==5.9.8
 numpy==1.25.2
 torch==2.1.2
